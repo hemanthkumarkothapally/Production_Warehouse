@@ -1,0 +1,1 @@
+using ProductionWarehouse as service from '../../srv/service';

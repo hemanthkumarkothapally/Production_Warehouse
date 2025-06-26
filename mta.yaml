@@ -1,0 +1,157 @@
+_schema-version: 3.3.0
+ID: Production_Warehouse
+description: A simple CAP project.
+version: 1.0.0
+modules:
+  - name: Production_Warehouse-srv
+    type: nodejs
+    path: gen/srv
+    requires:
+      - name: Production_Warehouse-db
+      - name: uaa_Production_Warehouse
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}
+    parameters:
+      buildpack: nodejs_buildpack
+      instances: 1
+    build-parameters:
+      builder: npm-ci
+  - name: Production_Warehouse-db-deployer
+    type: hdb
+    path: gen/db
+    requires:
+      - name: Production_Warehouse-db
+    parameters:
+      buildpack: nodejs_buildpack
+  - name: Production_Warehouse-destination-content
+    type: com.sap.application.content
+    requires:
+      - name: Production_Warehouse-destination-service
+        parameters:
+          content-target: true
+      - name: Production_Warehouse_html_repo_host
+        parameters:
+          service-key:
+            name: Production_Warehouse_html_repo_host-key
+      - name: uaa_Production_Warehouse
+        parameters:
+          service-key:
+            name: uaa_Production_Warehouse-key
+    parameters:
+      content:
+        instance:
+          destinations:
+            - Name: productuionwarehouse_Production_Warehouse_html_repo_host
+              ServiceInstanceName: Production_Warehouse-html5-app-host-service
+              ServiceKeyName: Production_Warehouse_html_repo_host-key
+              sap.cloud.service: productuionwarehouse
+            - Authentication: OAuth2UserTokenExchange
+              Name: productuionwarehouse_uaa_Production_Warehouse
+              ServiceInstanceName: Production_Warehouse-xsuaa-service
+              ServiceKeyName: uaa_Production_Warehouse-key
+              sap.cloud.service: productuionwarehouse
+          existing_destinations_policy: ignore
+    build-parameters:
+      no-source: true
+  - name: Production_Warehouse-app-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: Production_Warehouse_html_repo_host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - pwproductionwarehouse.zip
+          name: pwproductionwarehouse
+          target-path: resources/
+  - name: pwproductionwarehouse
+    type: html5
+    path: app/production_warehouse
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms:
+        []
+
+  - name: Production_Warehouse
+    type: approuter.nodejs
+    path: app/router
+    parameters:
+      keep-existing-routes: true
+      disk-quota: 256M
+      memory: 256M
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api # must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+    provides:
+      - name: app-api
+        properties:
+          app-protocol: ${protocol}
+          app-uri: ${default-uri}
+resources:
+  - name: Production_Warehouse-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+  - name: Production_Warehouse-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://ui5.sap.com
+              - Authentication: NoAuthentication
+                HTML5.DynamicDestination: true
+                HTML5.ForwardAuthToken: true
+                Name: Production_Warehouse-srv-api
+                ProxyType: Internet
+                Type: HTTP
+                URL: ~{srv-api/srv-url}
+            existing_destinations_policy: update
+        version: 1.0.0
+      service: destination
+      service-name: Production_Warehouse-destination-service
+      service-plan: lite
+    requires:
+      - name: srv-api
+  - name: Production_Warehouse_html_repo_host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-name: Production_Warehouse-html5-app-host-service
+      service-plan: app-host
+  - name: uaa_Production_Warehouse
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      service-name: Production_Warehouse-xsuaa-service
+      service-plan: application
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production

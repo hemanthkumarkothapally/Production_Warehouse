@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/mvc/Controller","sap/ui/core/Fragment","sap/ui/model/Filter","sap/ui/model/FilterOperator","sap/m/MessageBox","sap/m/MessageToast"],function(e,t,o,r,i,s){"use strict";return e.extend("pw.productionwarehouse.controller.BaseController",{getModel:function(e){return this.getView().getModel(e)},setModel:function(e,t){return this.getView().setModel(e,t)},getBaseURL:function(){return sap.ui.require.toUrl("nexdropui")},ODataPost:function(e,t){let o=this.getView().getModel();let r=o.bindList(e);r.create(t)}})});
+//# sourceMappingURL=BaseController.js.map
