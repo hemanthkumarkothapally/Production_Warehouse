@@ -7,9 +7,19 @@ sap.ui.define([
 ], (Controller,Fragment,BaseController,Filter,FilterOperator) => {
     "use strict";
 
-    return Controller.extend("pw.productionwarehouse.controller.ProductionWarehouseComplaints", {
+    return BaseController.extend("pw.productionwarehouse.controller.ProductionWarehouseComplaints", {
         onInit() {
-
+            $.ajax({
+                url: this.getBaseURL()+"/odata/v4/production-warehouse/getUser()", // Replace with your URL
+                type: "GET",
+                dataType: "json", // Expected response format
+                success: function (response) {
+                  console.log("Success:", response);
+                },
+                error: function (xhr, status, error) {
+                  console.error("Error:", error);
+                }
+              });
         },
         onGoPress:function(oEvent){
             // let oFilteritems=oEvent.getParameters().selectionSet.map(item=> {
@@ -66,6 +76,8 @@ sap.ui.define([
             });
         },
         onSubmitPress:function(){
+            let oForm=this.getOwnerComponent().getModel("Formmodel").getProperty("/NewComplaintForm");
+            this.ODataPost("/Complaints",oForm);
             this.onCancelPress();
         },
         onCancelPress:function(){

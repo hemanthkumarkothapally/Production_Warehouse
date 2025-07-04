@@ -1,5 +1,1 @@
-complaint_Id,brand,complaint_category,product_category,seriousness,status
-PW2024009,Burger King,Mishandling Logistic,Material group 1,Medium,Vendor Replied
-PW2024008,Ayami,Discoloration,BEEF,Medium,Investigation Required
-PW2024007,Kababji,Unapproved Brand,LAMB,Low,Pending Supply Chain
-PW2024006,Nuwair Kitchens,Discoloration,BEEF,Low,Pending Supply Chain
+ID,complaint_Id,brand,complaint_category,product_category,seriousness,status,createdAt,createdBy,modifiedAt,modifiedBy

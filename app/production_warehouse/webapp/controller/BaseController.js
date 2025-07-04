@@ -37,7 +37,7 @@ sap.ui.define([
          * @returns {sap.ui.model.resource.ResourceModel} the resourceModel of the component
          */
         getBaseURL: function () {
-            return sap.ui.require.toUrl("nexdropui");
+            return sap.ui.require.toUrl("pw/productionwarehouse");
         },
         ODataPost: function (sPath, oNewData) {
             let oModel = this.getView().getModel();

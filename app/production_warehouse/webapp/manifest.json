@@ -75,6 +75,10 @@
           "bundleName": "pw.productionwarehouse.i18n.i18n"
         }
       },
+      "Formmodel":{ 
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/form.json"
+      },
       "": {
         "dataSource": "mainService",
         "preload": true,

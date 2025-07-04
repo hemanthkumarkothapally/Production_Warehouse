@@ -1,0 +1,204 @@
+@server=http://localhost:4004
+@username=no_user_found_for_roles_authenticated-user
+@password=
+
+
+### Complaints
+# @name Complaints_GET
+GET {{server}}/odata/v4/production-warehouse/Complaints
+Authorization: Basic {{username}} {{password}}
+
+
+### Complaints
+# @name Complaints_POST
+POST {{server}}/odata/v4/production-warehouse/Complaints
+Content-Type: application/json
+Authorization: Basic {{username}} {{password}}
+
+{
+  "complaint_Id": "Complaints-18550249",
+  "brand": "brand-18550249",
+  "complaint_category": "complaint_category-18550249",
+  "product_category": "product_category-18550249",
+  "seriousness": "seriousness-18550249",
+  "status": "status-18550249",
+  "createdAt": "2004-02-10T00:00:00.000Z",
+  "createdBy": "hemanthkumarkothapally@gmail.com",
+  "modifiedAt": "2015-02-28T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.b1lgp@example.net"
+}
+
+
+### Complaints
+# @name Complaints_PATCH
+PATCH {{server}}/odata/v4/production-warehouse/Complaints/Complaints-18550249
+Content-Type: application/json
+Authorization: Basic {{username}} {{password}}
+
+{
+  "complaint_Id": "Complaints-18550249",
+  "brand": "brand-18550249",
+  "complaint_category": "complaint_category-18550249",
+  "product_category": "product_category-18550249",
+  "seriousness": "seriousness-18550249",
+  "status": "status-18550249",
+  "createdAt": "2004-02-10T00:00:00.000Z",
+  "createdBy": "createdBy.b1lgp@example.com",
+  "modifiedAt": "2015-02-28T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.b1lgp@example.net"
+}
+
+
+### Complaints
+# @name Complaints_DELETE
+DELETE {{server}}/odata/v4/production-warehouse/Complaints/Complaints-18550249
+Content-Type: application/json
+Authorization: Basic {{username}} {{password}}
+
+
+### ComplaintCategory
+# @name ComplaintCategory_GET
+GET {{server}}/odata/v4/production-warehouse/ComplaintCategory
+Authorization: Basic {{username}} {{password}}
+
+
+### ComplaintCategory
+# @name ComplaintCategory_POST
+POST {{server}}/odata/v4/production-warehouse/ComplaintCategory
+Content-Type: application/json
+Authorization: Basic {{username}} {{password}}
+
+{
+  "ID": "16498689-bd22-4d1f-8182-426f9d167a59",
+  "complaint_category": "complaint_category-16498689"
+}
+
+
+### ComplaintCategory
+# @name ComplaintCategory_PATCH
+PATCH {{server}}/odata/v4/production-warehouse/ComplaintCategory/16498689-bd22-4d1f-8182-426f9d167a59
+Content-Type: application/json
+Authorization: Basic {{username}} {{password}}
+
+{
+  "ID": "16498689-bd22-4d1f-8182-426f9d167a59",
+  "complaint_category": "complaint_category-16498689"
+}
+
+
+### ComplaintCategory
+# @name ComplaintCategory_DELETE
+DELETE {{server}}/odata/v4/production-warehouse/ComplaintCategory/16498689-bd22-4d1f-8182-426f9d167a59
+Content-Type: application/json
+Authorization: Basic {{username}} {{password}}
+
+
+### ProductCategory
+# @name ProductCategory_GET
+GET {{server}}/odata/v4/production-warehouse/ProductCategory
+Authorization: Basic {{username}} {{password}}
+
+
+### ProductCategory
+# @name ProductCategory_POST
+POST {{server}}/odata/v4/production-warehouse/ProductCategory
+Content-Type: application/json
+Authorization: Basic {{username}} {{password}}
+
+{
+  "ID": "21591301-084c-4fb4-bc4c-d4d638b29b61",
+  "product_category": "product_category-21591301"
+}
+
+
+### ProductCategory
+# @name ProductCategory_PATCH
+PATCH {{server}}/odata/v4/production-warehouse/ProductCategory/21591301-084c-4fb4-bc4c-d4d638b29b61
+Content-Type: application/json
+Authorization: Basic {{username}} {{password}}
+
+{
+  "ID": "21591301-084c-4fb4-bc4c-d4d638b29b61",
+  "product_category": "product_category-21591301"
+}
+
+
+### ProductCategory
+# @name ProductCategory_DELETE
+DELETE {{server}}/odata/v4/production-warehouse/ProductCategory/21591301-084c-4fb4-bc4c-d4d638b29b61
+Content-Type: application/json
+Authorization: Basic {{username}} {{password}}
+
+
+### Brands
+# @name Brands_GET
+GET {{server}}/odata/v4/production-warehouse/Brands
+Authorization: Basic {{username}} {{password}}
+
+
+### Brands
+# @name Brands_POST
+POST {{server}}/odata/v4/production-warehouse/Brands
+Content-Type: application/json
+Authorization: Basic {{username}} {{password}}
+
+{
+  "ID": "17502505-98b8-4209-85e8-c88e7f8b394b",
+  "brand_name": "brand_name-17502505"
+}
+
+
+### Brands
+# @name Brands_PATCH
+PATCH {{server}}/odata/v4/production-warehouse/Brands/17502505-98b8-4209-85e8-c88e7f8b394b
+Content-Type: application/json
+Authorization: Basic {{username}} {{password}}
+
+{
+  "ID": "17502505-98b8-4209-85e8-c88e7f8b394b",
+  "brand_name": "brand_name-17502505"
+}
+
+
+### Brands
+# @name Brands_DELETE
+DELETE {{server}}/odata/v4/production-warehouse/Brands/17502505-98b8-4209-85e8-c88e7f8b394b
+Content-Type: application/json
+Authorization: Basic {{username}} {{password}}
+
+
+### Status
+# @name Status_GET
+GET {{server}}/odata/v4/production-warehouse/Status
+Authorization: Basic {{username}} {{password}}
+
+
+### Status
+# @name Status_POST
+POST {{server}}/odata/v4/production-warehouse/Status
+Content-Type: application/json
+Authorization: Basic {{username}} {{password}}
+
+{
+  "ID": "26798980-9c28-446e-97a0-e6e02905273a",
+  "status_type": "status_type-26798980"
+}
+
+
+### Status
+# @name Status_PATCH
+PATCH {{server}}/odata/v4/production-warehouse/Status/26798980-9c28-446e-97a0-e6e02905273a
+Content-Type: application/json
+Authorization: Basic {{username}} {{password}}
+
+{
+  "ID": "26798980-9c28-446e-97a0-e6e02905273a",
+  "status_type": "status_type-26798980"
+}
+
+
+### Status
+# @name Status_DELETE
+DELETE {{server}}/odata/v4/production-warehouse/Status/26798980-9c28-446e-97a0-e6e02905273a
+Content-Type: application/json
+Authorization: Basic {{username}} {{password}}

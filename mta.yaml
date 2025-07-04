@@ -95,6 +95,7 @@ modules:
           name: srv-api # must be used in xs-app.json as well
           url: ~{srv-url}
           forwardAuthToken: true
+      - name: uaa_Production_Warehouse
     provides:
       - name: app-api
         properties:
@@ -146,6 +147,11 @@ resources:
       service: xsuaa
       service-name: Production_Warehouse-xsuaa-service
       service-plan: application
+      config:
+        xsappname: Production_Warehouse-${org}-${space}
+        tenant-mode: dedicated
+    requires:
+      - name: app-api
 parameters:
   deploy_mode: html5-repo
   enable-parallel-deployments: true

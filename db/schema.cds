@@ -1,8 +1,8 @@
 namespace db.cy.pw;
-using { cuid } from '@sap/cds/common';
+using { cuid,managed } from '@sap/cds/common';
 
-entity Complaints {
-    key complaint_Id       : String(100);
+entity Complaints :cuid,managed{
+    complaint_Id   : String(100);
     brand              : String(50);
     complaint_category : String(50);
     product_category   : String(50);
