@@ -1,0 +1,4 @@
+ID,complaint_ID,product_ID,supplier,batchNo,productionDate,expirationDate,lotCode,receivedOn,quantity,invoiceNumber
+1,123,1,TechSupplier Inc,BATCH001,2024-01-01,2026-01-01,LOT2024001,2024-01-10,1,INV-2024-001
+2,123,2,OrganicFarms Ltd,BATCH002,2024-01-05,2024-04-05,LOT2024002,2024-01-12,2,INV-2024-002
+3,123,3,AutoParts Co,BATCH003,2024-01-08,2029-01-08,LOT2024003,2024-01-15,1,INV-2024-003

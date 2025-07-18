@@ -6,199 +6,428 @@
 ### Complaints
 # @name Complaints_GET
 GET {{server}}/odata/v4/production-warehouse/Complaints
-Authorization: Basic {{username}} {{password}}
+Authorization: Basic {{username}}:{{password}}
 
 
 ### Complaints
 # @name Complaints_POST
 POST {{server}}/odata/v4/production-warehouse/Complaints
 Content-Type: application/json
-Authorization: Basic {{username}} {{password}}
+Authorization: Basic {{username}}:{{password}}
 
 {
-  "complaint_Id": "Complaints-18550249",
-  "brand": "brand-18550249",
-  "complaint_category": "complaint_category-18550249",
-  "product_category": "product_category-18550249",
-  "seriousness": "seriousness-18550249",
-  "status": "status-18550249",
-  "createdAt": "2004-02-10T00:00:00.000Z",
-  "createdBy": "hemanthkumarkothapally@gmail.com",
-  "modifiedAt": "2015-02-28T00:00:00.000Z",
-  "modifiedBy": "modifiedBy.b1lgp@example.net"
+  "ID": "83521db5-88b3-4bef-a82e-9b5b7887ef54",
+  "complaintId": "complaintId-83521",
+  "brand": "brand-83521",
+  "complaintCategory": "complaintCategory-83521",
+  "productCategory": "productCategory-83521",
+  "insurance_Required": false,
+  "status": "REJECTED",
+  "items": [
+    {
+      "ID": "14518939-f460-4529-947e-7ef4704e8823",
+      "product": {
+        "ID": "25321272-5985-4516-bec7-f627f8e05916"
+      },
+      "supplier": "supplier-14518939",
+      "batchNo": "batchNo-14518939",
+      "productionDate": "2014-07-06",
+      "expirationDate": "2016-05-29",
+      "lotCode": "lotCode-14518939",
+      "receivedOn": "2006-01-29",
+      "quantity": 22.21,
+      "invoiceNumber": "invoiceNumber-14518939"
+    },
+    {
+      "ID": "14518940-379c-4083-9c6b-ac3556009c70",
+      "product": {
+        "ID": "25321272-5985-4516-bec7-f627f8e05916"
+      },
+      "supplier": "supplier-14518940",
+      "batchNo": "batchNo-14518940",
+      "productionDate": "2004-06-15",
+      "expirationDate": "2001-02-24",
+      "lotCode": "lotCode-14518940",
+      "receivedOn": "2011-09-05",
+      "quantity": 69.31,
+      "invoiceNumber": "invoiceNumber-14518940"
+    }
+  ],
+  "complaintDetails": [
+    {
+      "ID": "19869470-ba40-4779-91d8-7db9db458a39",
+      "seriousness": "MODERATE",
+      "complaintDetail": "complaintDetail-19869470",
+      "temperature": 48.22,
+      "interimAction": "interimAction-19869470"
+    }
+  ],
+  "createdAt": "2000-07-14T00:00:00.000Z",
+  "createdBy": "createdBy.1sg1@example.com",
+  "modifiedAt": "2014-03-26T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.1sg1@example.net"
 }
 
 
 ### Complaints
 # @name Complaints_PATCH
-PATCH {{server}}/odata/v4/production-warehouse/Complaints/Complaints-18550249
+PATCH {{server}}/odata/v4/production-warehouse/Complaints/83521db5-88b3-4bef-a82e-9b5b7887ef54
 Content-Type: application/json
-Authorization: Basic {{username}} {{password}}
+Authorization: Basic {{username}}:{{password}}
 
 {
-  "complaint_Id": "Complaints-18550249",
-  "brand": "brand-18550249",
-  "complaint_category": "complaint_category-18550249",
-  "product_category": "product_category-18550249",
-  "seriousness": "seriousness-18550249",
-  "status": "status-18550249",
-  "createdAt": "2004-02-10T00:00:00.000Z",
-  "createdBy": "createdBy.b1lgp@example.com",
-  "modifiedAt": "2015-02-28T00:00:00.000Z",
-  "modifiedBy": "modifiedBy.b1lgp@example.net"
+  "ID": "83521db5-88b3-4bef-a82e-9b5b7887ef54",
+  "complaintId": "complaintId-83521",
+  "brand": "brand-83521",
+  "complaintCategory": "complaintCategory-83521",
+  "productCategory": "productCategory-83521",
+  "insurance_Required": false,
+  "status": "REJECTED",
+  "items": [
+    {
+      "ID": "14518939-f460-4529-947e-7ef4704e8823",
+      "product": {
+        "ID": "25321272-5985-4516-bec7-f627f8e05916"
+      },
+      "supplier": "supplier-14518939",
+      "batchNo": "batchNo-14518939",
+      "productionDate": "2014-07-06",
+      "expirationDate": "2016-05-29",
+      "lotCode": "lotCode-14518939",
+      "receivedOn": "2006-01-29",
+      "quantity": 22.21,
+      "invoiceNumber": "invoiceNumber-14518939"
+    },
+    {
+      "ID": "14518940-379c-4083-9c6b-ac3556009c70",
+      "product": {
+        "ID": "25321272-5985-4516-bec7-f627f8e05916"
+      },
+      "supplier": "supplier-14518940",
+      "batchNo": "batchNo-14518940",
+      "productionDate": "2004-06-15",
+      "expirationDate": "2001-02-24",
+      "lotCode": "lotCode-14518940",
+      "receivedOn": "2011-09-05",
+      "quantity": 69.31,
+      "invoiceNumber": "invoiceNumber-14518940"
+    }
+  ],
+  "complaintDetails": [
+    {
+      "ID": "19869470-ba40-4779-91d8-7db9db458a39",
+      "seriousness": "MODERATE",
+      "complaintDetail": "complaintDetail-19869470",
+      "temperature": 48.22,
+      "interimAction": "interimAction-19869470"
+    }
+  ],
+  "createdAt": "2000-07-14T00:00:00.000Z",
+  "createdBy": "createdBy.1sg1@example.com",
+  "modifiedAt": "2014-03-26T00:00:00.000Z",
+  "modifiedBy": "modifiedBy.1sg1@example.net"
 }
 
 
 ### Complaints
 # @name Complaints_DELETE
-DELETE {{server}}/odata/v4/production-warehouse/Complaints/Complaints-18550249
+DELETE {{server}}/odata/v4/production-warehouse/Complaints/83521db5-88b3-4bef-a82e-9b5b7887ef54
 Content-Type: application/json
-Authorization: Basic {{username}} {{password}}
+Authorization: Basic {{username}}:{{password}}
+
+
+### ComplaintDetails
+# @name ComplaintDetails_GET
+GET {{server}}/odata/v4/production-warehouse/ComplaintDetails
+Authorization: Basic {{username}}:{{password}}
+
+
+### ComplaintDetails
+# @name ComplaintDetails_POST
+POST {{server}}/odata/v4/production-warehouse/ComplaintDetails
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "19869470-ba40-4779-91d8-7db9db458a39",
+  "seriousness": "MODERATE",
+  "complaintDetail": "complaintDetail-19869470",
+  "temperature": 48.22,
+  "interimAction": "interimAction-19869470"
+}
+
+
+### ComplaintDetails
+# @name ComplaintDetails_PATCH
+PATCH {{server}}/odata/v4/production-warehouse/ComplaintDetails/19869470-ba40-4779-91d8-7db9db458a39
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "19869470-ba40-4779-91d8-7db9db458a39",
+  "seriousness": "MODERATE",
+  "complaintDetail": "complaintDetail-19869470",
+  "temperature": 48.22,
+  "interimAction": "interimAction-19869470"
+}
+
+
+### ComplaintDetails
+# @name ComplaintDetails_DELETE
+DELETE {{server}}/odata/v4/production-warehouse/ComplaintDetails/19869470-ba40-4779-91d8-7db9db458a39
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+
+### Items
+# @name Items_GET
+GET {{server}}/odata/v4/production-warehouse/Items
+Authorization: Basic {{username}}:{{password}}
+
+
+### Items
+# @name Items_POST
+POST {{server}}/odata/v4/production-warehouse/Items
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "14518939-f460-4529-947e-7ef4704e8823",
+  "product": {
+    "ID": "25321272-5985-4516-bec7-f627f8e05916"
+  },
+  "supplier": "supplier-14518939",
+  "batchNo": "batchNo-14518939",
+  "productionDate": "2014-07-06",
+  "expirationDate": "2016-05-29",
+  "lotCode": "lotCode-14518939",
+  "receivedOn": "2006-01-29",
+  "quantity": 22.21,
+  "invoiceNumber": "invoiceNumber-14518939"
+}
+
+
+### Items
+# @name Items_PATCH
+PATCH {{server}}/odata/v4/production-warehouse/Items/14518939-f460-4529-947e-7ef4704e8823
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "14518939-f460-4529-947e-7ef4704e8823",
+  "product": {
+    "ID": "25321272-5985-4516-bec7-f627f8e05916"
+  },
+  "supplier": "supplier-14518939",
+  "batchNo": "batchNo-14518939",
+  "productionDate": "2014-07-06",
+  "expirationDate": "2016-05-29",
+  "lotCode": "lotCode-14518939",
+  "receivedOn": "2006-01-29",
+  "quantity": 22.21,
+  "invoiceNumber": "invoiceNumber-14518939"
+}
+
+
+### Items
+# @name Items_DELETE
+DELETE {{server}}/odata/v4/production-warehouse/Items/14518939-f460-4529-947e-7ef4704e8823
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+
+### Attachments
+# @name Attachments_GET
+GET {{server}}/odata/v4/production-warehouse/Attachments
+Authorization: Basic {{username}}:{{password}}
+
+
+### Attachments
+# @name Attachments_POST
+POST {{server}}/odata/v4/production-warehouse/Attachments
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "39352409-f314-4ad0-a743-a31d1ccfb00f",
+  "complaint": {
+    "ID": "83521db5-88b3-4bef-a82e-9b5b7887ef54"
+  },
+  "fileName": "fileName-3935240",
+  "uploadedBy": "uploadedBy-3935240",
+  "uploadedAt": "2000-11-03T00:00:00.000Z"
+}
+
+
+### Attachments
+# @name Attachments_PATCH
+PATCH {{server}}/odata/v4/production-warehouse/Attachments/39352409-f314-4ad0-a743-a31d1ccfb00f
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "39352409-f314-4ad0-a743-a31d1ccfb00f",
+  "complaint": {
+    "ID": "83521db5-88b3-4bef-a82e-9b5b7887ef54"
+  },
+  "fileName": "fileName-3935240",
+  "uploadedBy": "uploadedBy-3935240",
+  "uploadedAt": "2000-11-03T00:00:00.000Z"
+}
+
+
+### Attachments
+# @name Attachments_DELETE
+DELETE {{server}}/odata/v4/production-warehouse/Attachments/39352409-f314-4ad0-a743-a31d1ccfb00f
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+
+### Products
+# @name Products_GET
+GET {{server}}/odata/v4/production-warehouse/Products
+Authorization: Basic {{username}}:{{password}}
+
+
+### Products
+# @name Products_POST
+POST {{server}}/odata/v4/production-warehouse/Products
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "25321272-5985-4516-bec7-f627f8e05916",
+  "productName": "productName-25321272",
+  "description": "description-25321272"
+}
+
+
+### Products
+# @name Products_PATCH
+PATCH {{server}}/odata/v4/production-warehouse/Products/25321272-5985-4516-bec7-f627f8e05916
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  "ID": "25321272-5985-4516-bec7-f627f8e05916",
+  "productName": "productName-25321272",
+  "description": "description-25321272"
+}
+
+
+### Products
+# @name Products_DELETE
+DELETE {{server}}/odata/v4/production-warehouse/Products/25321272-5985-4516-bec7-f627f8e05916
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
 
 
 ### ComplaintCategory
 # @name ComplaintCategory_GET
 GET {{server}}/odata/v4/production-warehouse/ComplaintCategory
-Authorization: Basic {{username}} {{password}}
+Authorization: Basic {{username}}:{{password}}
 
 
 ### ComplaintCategory
 # @name ComplaintCategory_POST
 POST {{server}}/odata/v4/production-warehouse/ComplaintCategory
 Content-Type: application/json
-Authorization: Basic {{username}} {{password}}
+Authorization: Basic {{username}}:{{password}}
 
 {
-  "ID": "16498689-bd22-4d1f-8182-426f9d167a59",
-  "complaint_category": "complaint_category-16498689"
+  "ID": "555145dd-9b2a-4ee0-8085-d30954850241",
+  "complaint_category": "complaint_category-555145"
 }
 
 
 ### ComplaintCategory
 # @name ComplaintCategory_PATCH
-PATCH {{server}}/odata/v4/production-warehouse/ComplaintCategory/16498689-bd22-4d1f-8182-426f9d167a59
+PATCH {{server}}/odata/v4/production-warehouse/ComplaintCategory/555145dd-9b2a-4ee0-8085-d30954850241
 Content-Type: application/json
-Authorization: Basic {{username}} {{password}}
+Authorization: Basic {{username}}:{{password}}
 
 {
-  "ID": "16498689-bd22-4d1f-8182-426f9d167a59",
-  "complaint_category": "complaint_category-16498689"
+  "ID": "555145dd-9b2a-4ee0-8085-d30954850241",
+  "complaint_category": "complaint_category-555145"
 }
 
 
 ### ComplaintCategory
 # @name ComplaintCategory_DELETE
-DELETE {{server}}/odata/v4/production-warehouse/ComplaintCategory/16498689-bd22-4d1f-8182-426f9d167a59
+DELETE {{server}}/odata/v4/production-warehouse/ComplaintCategory/555145dd-9b2a-4ee0-8085-d30954850241
 Content-Type: application/json
-Authorization: Basic {{username}} {{password}}
+Authorization: Basic {{username}}:{{password}}
 
 
 ### ProductCategory
 # @name ProductCategory_GET
 GET {{server}}/odata/v4/production-warehouse/ProductCategory
-Authorization: Basic {{username}} {{password}}
+Authorization: Basic {{username}}:{{password}}
 
 
 ### ProductCategory
 # @name ProductCategory_POST
 POST {{server}}/odata/v4/production-warehouse/ProductCategory
 Content-Type: application/json
-Authorization: Basic {{username}} {{password}}
+Authorization: Basic {{username}}:{{password}}
 
 {
-  "ID": "21591301-084c-4fb4-bc4c-d4d638b29b61",
-  "product_category": "product_category-21591301"
+  "ID": "26464071-2921-4ebb-8316-485428709a00",
+  "product_category": "product_category-26464071"
 }
 
 
 ### ProductCategory
 # @name ProductCategory_PATCH
-PATCH {{server}}/odata/v4/production-warehouse/ProductCategory/21591301-084c-4fb4-bc4c-d4d638b29b61
+PATCH {{server}}/odata/v4/production-warehouse/ProductCategory/26464071-2921-4ebb-8316-485428709a00
 Content-Type: application/json
-Authorization: Basic {{username}} {{password}}
+Authorization: Basic {{username}}:{{password}}
 
 {
-  "ID": "21591301-084c-4fb4-bc4c-d4d638b29b61",
-  "product_category": "product_category-21591301"
+  "ID": "26464071-2921-4ebb-8316-485428709a00",
+  "product_category": "product_category-26464071"
 }
 
 
 ### ProductCategory
 # @name ProductCategory_DELETE
-DELETE {{server}}/odata/v4/production-warehouse/ProductCategory/21591301-084c-4fb4-bc4c-d4d638b29b61
+DELETE {{server}}/odata/v4/production-warehouse/ProductCategory/26464071-2921-4ebb-8316-485428709a00
 Content-Type: application/json
-Authorization: Basic {{username}} {{password}}
+Authorization: Basic {{username}}:{{password}}
 
 
 ### Brands
 # @name Brands_GET
 GET {{server}}/odata/v4/production-warehouse/Brands
-Authorization: Basic {{username}} {{password}}
+Authorization: Basic {{username}}:{{password}}
 
 
 ### Brands
 # @name Brands_POST
 POST {{server}}/odata/v4/production-warehouse/Brands
 Content-Type: application/json
-Authorization: Basic {{username}} {{password}}
+Authorization: Basic {{username}}:{{password}}
 
 {
-  "ID": "17502505-98b8-4209-85e8-c88e7f8b394b",
-  "brand_name": "brand_name-17502505"
+  "ID": "15681235-7e22-42b7-95f5-e22435a1b566",
+  "brand_name": "brand_name-15681235"
 }
 
 
 ### Brands
 # @name Brands_PATCH
-PATCH {{server}}/odata/v4/production-warehouse/Brands/17502505-98b8-4209-85e8-c88e7f8b394b
+PATCH {{server}}/odata/v4/production-warehouse/Brands/15681235-7e22-42b7-95f5-e22435a1b566
 Content-Type: application/json
-Authorization: Basic {{username}} {{password}}
+Authorization: Basic {{username}}:{{password}}
 
 {
-  "ID": "17502505-98b8-4209-85e8-c88e7f8b394b",
-  "brand_name": "brand_name-17502505"
+  "ID": "15681235-7e22-42b7-95f5-e22435a1b566",
+  "brand_name": "brand_name-15681235"
 }
 
 
 ### Brands
 # @name Brands_DELETE
-DELETE {{server}}/odata/v4/production-warehouse/Brands/17502505-98b8-4209-85e8-c88e7f8b394b
+DELETE {{server}}/odata/v4/production-warehouse/Brands/15681235-7e22-42b7-95f5-e22435a1b566
 Content-Type: application/json
-Authorization: Basic {{username}} {{password}}
-
-
-### Status
-# @name Status_GET
-GET {{server}}/odata/v4/production-warehouse/Status
-Authorization: Basic {{username}} {{password}}
-
-
-### Status
-# @name Status_POST
-POST {{server}}/odata/v4/production-warehouse/Status
-Content-Type: application/json
-Authorization: Basic {{username}} {{password}}
-
-{
-  "ID": "26798980-9c28-446e-97a0-e6e02905273a",
-  "status_type": "status_type-26798980"
-}
-
-
-### Status
-# @name Status_PATCH
-PATCH {{server}}/odata/v4/production-warehouse/Status/26798980-9c28-446e-97a0-e6e02905273a
-Content-Type: application/json
-Authorization: Basic {{username}} {{password}}
-
-{
-  "ID": "26798980-9c28-446e-97a0-e6e02905273a",
-  "status_type": "status_type-26798980"
-}
-
-
-### Status
-# @name Status_DELETE
-DELETE {{server}}/odata/v4/production-warehouse/Status/26798980-9c28-446e-97a0-e6e02905273a
-Content-Type: application/json
-Authorization: Basic {{username}} {{password}}
+Authorization: Basic {{username}}:{{password}}

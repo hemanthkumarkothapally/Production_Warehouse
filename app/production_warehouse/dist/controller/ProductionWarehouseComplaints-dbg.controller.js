@@ -9,19 +9,20 @@ sap.ui.define([
 
     return BaseController.extend("pw.productionwarehouse.controller.ProductionWarehouseComplaints", {
         onInit() {
-            $.ajax({
-                url: this.getBaseURL()+"/odata/v4/production-warehouse/getUser()", // Replace with your URL
-                type: "GET",
-                dataType: "json", // Expected response format
-                success: function (response) {
-                  console.log("Success:", response);
-                },
-                error: function (xhr, status, error) {
-                  console.error("Error:", error);
-                }
-              });
+            this.getRouter().getRoute("RouteProductionWarehouseComplaints").attachPatternMatched(this._onRouterProductionWarehouseComplaintsMatched,this)
         },
-        onGoPress:function(oEvent){
+        _onRouterProductionWarehouseComplaintsMatched:function(oEvent){
+            let oComplaints={
+                "complaintDetails": {
+                    "seriousness": null
+                },
+                "items": [],
+                "attachments": []
+            }
+            this.getLocalModel("DetailsModel").setProperty("/Complaint",oComplaints);
+            console.log(oEvent);
+        },
+        onGoBtnPress:function(oEvent){
             // let oFilteritems=oEvent.getParameters().selectionSet.map(item=> {
             //     return { "sproperty":item.getParent().getProperty("name"), "value":item._lastValue };
             //  })
@@ -43,7 +44,7 @@ sap.ui.define([
                let aSelectedKeys=aFilterItem.getControl().getSelectedKeys();
                if (aSelectedKeys) {
                 aSelectedKeys.forEach(sValue=>{
-                    if(sPropertyName==="complaint_Id"){
+                    if(sPropertyName==="ID"){
                         aFilters.push(new Filter(sPropertyName, "EQ", sValue));
                     }
                     else{
@@ -58,32 +59,22 @@ sap.ui.define([
             oBinding.filter(aFilters);
 
         },
-        onNewComplaintPress: function () {
-            let oView = this.getView();
+        onNewComplaintBtnPress: function () {
+            this.getRouter().navTo("RouteProductionWarehouseDetails",{ ID: 'NEW'});
+        },
+        onRowSelection: async function(oEvent){
+            let oModel = this.getModel();
+            let oData=oEvent.getSource().getBindingContext().getObject();
+            let sPath="/Complaints('"+oData.ID+"')";
+            let oContext = oModel.bindContext(sPath, undefined, { $expand: "complaintDetails,items,attachments" });
+            let oDetail = await oContext.requestObject().then(function (oData) {
+                console.log(oData);
+              return oData;
+            })
+            this.getLocalModel("DetailsModel").setProperty("/Complaint",oDetail);
+            this.getRouter().navTo("RouteProductionWarehouseDetails",{ ID: oData.ID});
 
-            if (!this._NewComplaintDialog) {
-                this._NewComplaintDialog = Fragment.load({
-                    id: oView.getId(),
-                    name: "pw.productionwarehouse.view.fragments.NewComplaintDialog",
-                    controller: this
-                }).then(function (oDialog) {
-                    oView.addDependent(oDialog);
-                    return oDialog;
-                });
-            }
-            this._NewComplaintDialog.then(function (oDialog) {
-                oDialog.open();
-            });
-        },
-        onSubmitPress:function(){
-            let oForm=this.getOwnerComponent().getModel("Formmodel").getProperty("/NewComplaintForm");
-            this.ODataPost("/Complaints",oForm);
-            this.onCancelPress();
-        },
-        onCancelPress:function(){
-            this._NewComplaintDialog.then(function (oDialog) {
-                oDialog.close();
-            });
         }
+       
     });
 });

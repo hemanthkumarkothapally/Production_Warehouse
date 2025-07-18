@@ -1,54 +1,35 @@
-<mvc:View xmlns:core="sap.ui.core"
-    controllerName="pw.productionwarehouse.controller.ProductionWarehouseComplaints"
+<mvc:View xmlns:core="sap.ui.core" controllerName="pw.productionwarehouse.controller.ProductionWarehouseComplaints"
     xmlns:odata="sap.ui.comp.odata"
     xmlns:filterbar="sap.ui.comp.filterbar"
     xmlns:tnt="sap.tnt"
     xmlns:f="sap.f"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m"
->
-    <f:DynamicPage >
-        <f:title>
-        </f:title>
+    xmlns="sap.m">
+    <f:DynamicPage>
+        <f:title />
         <f:header>
             <f:DynamicPageHeader>
                 <f:content>
-                    <filterbar:FilterBar id="idFilterBar" useToolbar="false" search=".onGoPress">
+                    <filterbar:FilterBar id="idFilterBar" useToolbar="false" search=".onGoBtnPress">
                         <filterbar:filterGroupItems>
-                            <filterbar:FilterGroupItem
-                                label="Complaint ID"
-                                name="complaint_Id"
-                                groupName="group1"
-                                visibleInFilterBar="true"
-                            >
+                            <filterbar:FilterGroupItem label="{i18n>filterItemLabel1}" name="ID" groupName="group1" visibleInFilterBar="true">
                                 <filterbar:control>
                                     <MultiComboBox items="{/Complaints}">
-                                    <core:Item key="{complaint_Id}" text="{complaint_Id}"></core:Item>
+                                        <core:Item key="{ID}" text="{ID}" />
                                     </MultiComboBox>
                                 </filterbar:control>
                             </filterbar:FilterGroupItem>
-                            <filterbar:FilterGroupItem
-                                label="Complaint Category"
-                                name="complaint_category"
-                                groupName="group1"
-                                visibleInFilterBar="true"
-                            >
+                            <filterbar:FilterGroupItem label="{i18n>filterItemLabel2}" name="complaintCategory" groupName="group1" visibleInFilterBar="true">
                                 <filterbar:control>
                                     <MultiComboBox items="{/ComplaintCategory}">
-                                    <core:Item key="{complaint_category}" text="{complaint_category}"></core:Item>
+                                        <core:Item key="{complaint_category}" text="{complaint_category}" />
                                     </MultiComboBox>
                                 </filterbar:control>
                             </filterbar:FilterGroupItem>
-                            <filterbar:FilterGroupItem
-                                label="Product Category"
-                                name="product_category"
-                                groupName="group1"
-                                visibleInFilterBar="true"
-                            >
+                            <filterbar:FilterGroupItem label="{i18n>filterItemLabel3}" name="productCategory" groupName="group1" visibleInFilterBar="true">
                                 <filterbar:control>
-                                    
                                     <MultiComboBox items="{/ProductCategory}">
-                                    <core:Item key="{product_category}" text="{product_category}"></core:Item>
+                                        <core:Item key="{product_category}" text="{product_category}" />
                                     </MultiComboBox>
                                 </filterbar:control>
                             </filterbar:FilterGroupItem>
@@ -58,46 +39,48 @@
             </f:DynamicPageHeader>
         </f:header>
         <f:content>
-            <Table id="idComplaintsTable" items="{/Complaints}">
+            <Table id="idComplaintsTable" 
+                autoPopinMode="true"
+             items="{
+             path: '/Complaints',
+                parameters: {
+                expand: 'complaintDetails'
+                }}">
                 <headerToolbar>
                     <tnt:ToolHeader>
                         <Title text="Items({= ${/Complaints/$count}})" />
                         <ToolbarSpacer />
-                        <Button
-                            text="New Complaint"
-                            type="Accept"
-                            press=".onNewComplaintPress"
-                        />
+                        <Button text="{i18n>newComplaintBtnText}" type="Accept" press=".onNewComplaintBtnPress" />
                     </tnt:ToolHeader>
                 </headerToolbar>
                 <columns>
-                    <Column>
-                        <Label text="Complaint ID" />
+                    <Column popinDisplay="Block">
+                        <Label text="{i18n>itemsTableLabelId}" />
+                    </Column>
+                    <Column popinDisplay="Block">
+                        <Label text="{i18n>itemsTableLabelBrand}" />
                     </Column>
                     <Column>
-                        <Label text="Brand" />
+                        <Label text="{i18n>itemsTableLabelComplaint}" />
                     </Column>
                     <Column>
-                        <Label text="Complaint Category" />
+                        <Label text="{i18n>itemsTableLabelProduct}" />
                     </Column>
                     <Column>
-                        <Label text="Product Category" />
+                        <Label text="{i18n>itemsTableLabelSeriousness}" />
                     </Column>
                     <Column>
-                        <Label text="Seriousness" />
-                    </Column>
-                    <Column>
-                        <Label text="Status" />
+                        <Label text="{i18n>itemsTableLabelStatus}" />
                     </Column>
                 </columns>
-                <items >
-                    <ColumnListItem type="Navigation">
+                <items>
+                    <ColumnListItem type="Navigation" press="onRowSelection">
                         <cells>
-                            <Text text="{complaint_Id}" />
+                            <Text text="{ID}" />
                             <Text text="{brand}" />
-                            <Text text="{complaint_category}" />
-                            <Text text="{product_category}" />
-                            <Text text="{seriousness}" />
+                            <Text text="{complaintCategory}" />
+                            <Text text="{productCategory}" />
+                            <Text text="{complaintDetails/seriousness}" />
                             <Text text="{status}" />
                         </cells>
                     </ColumnListItem>

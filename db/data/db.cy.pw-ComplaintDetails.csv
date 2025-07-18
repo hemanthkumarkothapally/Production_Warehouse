@@ -1,0 +1,4 @@
+ID,seriousness,complaintDetail,temperature,interimAction
+1,MODERATE,Product screen flickering intermittently after 2 hours of use. Customer reports headaches and eye strain.,25.5,Temporary replacement unit provided to customer
+2,MAJOR,Foreign object found in food product. Customer reported potential choking hazard.,4.2,Product batch recalled from all retail locations
+3,MINOR,Engine noise louder than expected during idle. No performance impact observed.,22.0,Service appointment scheduled for inspection

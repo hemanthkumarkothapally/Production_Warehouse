@@ -1,1 +1,2 @@
-ID,complaint_Id,brand,complaint_category,product_category,seriousness,status,createdAt,createdBy,modifiedAt,modifiedBy
+ID,complaintId,complaintDetails_ID,brand,complaintCategory,productCategory,insurance_Required,status,createdAt,createdBy,modifiedAt,modifiedBy
+123,c123,1,Subway,Discoloration,PLASTIC BAG,true,MANAGER_APPROVAL_PENDING,2025-07-10T09:30:00Z,hemanth@gmail.com,2025-07-12T10:00:00Z,hemanth@gmail.com

@@ -1,0 +1,9 @@
+{
+    "Complaint": {},
+    "Seriousness" :[
+        {"value":"MINOR"},
+        {"value":"MODERATE"},
+        {"value":"MAJOR"},
+        {"value":"CRITICAL"}
+    ]
+}

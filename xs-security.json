@@ -8,23 +8,23 @@
       "description": "ADMIN Scope"
     },
     {
-      "name":"$XSAPPNAME.USER",
-      "description":"USER scope"
+      "name": "$XSAPPNAME.USER",
+      "description": "USER scope"
     }
   ],
   "attributes": [],
   "role-templates": [
     {
-      "name":"Admin_Role",
-      "description":"ADMIN Role",
-      "scope-references":[
+      "name": "Admin_Role",
+      "description": "ADMIN Role",
+      "scope-references": [
         "$XSAPPNAME.ADMIN"
       ]
     },
     {
-      "name":"User_Role",
-      "description":"User Role",
-      "scope-references":[
+      "name": "User_Role",
+      "description": "User Role",
+      "scope-references": [
         "$XSAPPNAME.USER"
       ]
     }

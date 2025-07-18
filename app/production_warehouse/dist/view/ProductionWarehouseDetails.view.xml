@@ -1,0 +1,145 @@
+<mvc:View xmlns:plugins="sap.m.plugins"
+    xmlns:upload="sap.m.upload"
+    xmlns:table="sap.ui.table"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:uxap="sap.uxap"
+    xmlns:core="sap.ui.core" controllerName="pw.productionwarehouse.controller.ProductionWarehouseDetails"
+    xmlns:odata="sap.ui.comp.odata"
+    xmlns:filterbar="sap.ui.comp.filterbar"
+    xmlns:tnt="sap.tnt"
+    xmlns:f="sap.f"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <uxap:ObjectPageLayout headerContentPinned="true" showFooter="{= ${DetailsModel>/Complaint/ID}? false : true}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <Title text="Complaint Id: {= ${DetailsModel>/Complaint/ID}? ${DetailsModel>/Complaint/ID}: 'New' } " />
+                </uxap:expandedHeading>
+                <uxap:expandedContent>
+                    <ObjectAttribute title="{i18n>subTittle}" text="{= ${DetailsModel>/Complaint/status}? ${DetailsModel>/Complaint/status}: 'Draft' }" />
+                </uxap:expandedContent>
+                <uxap:actions>
+                    <Button icon="sap-icon://course-book" text="Re-Open" type="Emphasized" enabled="{= ${DetailsModel>/Complaint/complaintId}? true: false }" press=".onReOpenBtnPress" />
+                    <Button text="Print" press="onPrintBtnPress" />
+                    <Button icon="sap-icon://decline" press="onDeclineBtnPress" />
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:sections>
+            <uxap:ObjectPageSection title="{i18n>ComplaintSectionTittle}" titleUppercase="false">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <form:SimpleForm editable="true" layout="ColumnLayout" columnsM="2" columnsXL="2">
+                                <Label text="{i18n>ComplaintLabelText1}" required="true" />
+                                <ComboBox selectedKey="{DetailsModel>/Complaint/brand}" items="{/Brands}" editable="{DetailsModel>/editable}">
+                                    <items>
+                                        <core:Item key="{brand_name}" text="{brand_name}" />
+                                    </items>
+                                </ComboBox>
+                                <Label text="{i18n>ComplaintLabelText2}" required="true" />
+                                <ComboBox selectedKey="{DetailsModel>/Complaint/complaintCategory}" items="{/ComplaintCategory}" editable="{DetailsModel>/editable}">
+                                    <items>
+                                        <core:Item key="{complaint_category}" text="{complaint_category}" />
+                                    </items>
+                                </ComboBox>
+                                <Label text="{i18n>ComplaintLabelText3}" required="true" />
+                                <ComboBox selectedKey="{DetailsModel>/Complaint/productCategory}" items="{/ProductCategory}" editable="{DetailsModel>/editable}">
+                                    <items>
+                                        <core:Item key="{product_category}" text="{product_category}" />
+                                    </items>
+                                </ComboBox>
+                                <Label text="Insurance Required" />
+                                <CheckBox selected="" editable="{DetailsModel>/editable}"/>
+                            </form:SimpleForm>
+                        </uxap:blocks>
+    
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+            <uxap:ObjectPageSection title="Item Details" titleUppercase="false">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection >
+                        <uxap:actions>
+                            <Button icon="sap-icon://add" text="Add Item" type="Accept" press="onAddItemBtnPress" enabled="{DetailsModel>/editable}"></Button>
+                        </uxap:actions>
+                        <uxap:blocks >
+                            <VBox id="idItemsVBox">
+
+                            </VBox>
+                            
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+            <uxap:ObjectPageSection title="Complaint Details" titleUppercase="false">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <form:SimpleForm editable="true" layout="ColumnLayout" columnsM="2" columnsXL="2">
+                                <Label text="Seriousness" required="true" />
+                                <ComboBox items="{DetailsModel>/Seriousness}" selectedKey="{DetailsModel>/Complaint/complaintDetails/seriousness}" editable="{DetailsModel>/editable}">
+                                    <items >
+                                        <core:Item key="{DetailsModel>value}" text="{DetailsModel>value}" />
+                                    </items>
+                                </ComboBox>
+                                <Label text="Details of Complaint" required="true" />
+                                <TextArea value="{DetailsModel>/Complaint/complaintDetails/complaintDetail}" editable="{DetailsModel>/editable}"></TextArea>
+                                <Label text="Data Logger Temperature" required="true" />
+                                <Input value="{DetailsModel>/Complaint/complaintDetails/temperature}" type="Number" editable="{DetailsModel>/editable}"></Input>
+                                <Label text="Interim Action" required="true" />
+                                <TextArea value="{DetailsModel>/Complaint/complaintDetails/interimAction}" editable="{DetailsModel>/editable}"></TextArea>
+
+                            </form:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+            <uxap:ObjectPageSection title="{i18n>attachmentsTittle}" titleUppercase="false">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <Table id="idAttachmentsTable" items="{DetailsModel>/Complaint/attachments}">
+                                <headerToolbar>
+                                    <OverflowToolbar >
+                                        <Title text="{i18n>attachmentsTittle}"></Title>
+                                        <ToolbarSpacer ></ToolbarSpacer>
+                                        <Button text="Upload" press="onUploadBtnPress" enabled="{DetailsModel>/editable}"></Button>
+                                        <Button icon="sap-icon://delete" press="onDeleteBtnPress" enabled="{DetailsModel>/editable}"></Button>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+
+                                <columns>
+                                    <Column >
+                                        <Label text="{i18n>attachmentsFileName}"></Label>
+                                    </Column>
+                                    <Column >
+                                        <Label text="{i18n>attachmentsBy}"></Label>
+                                    </Column>
+                                    <Column >
+                                        <Label text="{i18n>attachmentsAt}"></Label>
+                                    </Column>
+                                </columns>
+                                <ColumnListItem >
+                                    <cells>
+                                        <Text text="{DetailsModel>fileName}"></Text>
+                                        <Text text="{DetailsModel>uploadedBy}"></Text>
+                                        <Text text="{DetailsModel>uploadedAt}"></Text>
+                                    </cells>
+                                </ColumnListItem>
+                            </Table>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+        <uxap:footer>
+            <OverflowToolbar >
+                <ToolbarSpacer ></ToolbarSpacer>
+                <Button text="Submit" type="Success" press="onSubmitBtnPress"></Button>
+                <Button text="Complete Later" press="onCompleteLaterBtnPress"></Button>
+            </OverflowToolbar>
+        </uxap:footer>
+    </uxap:ObjectPageLayout>
+</mvc:View>

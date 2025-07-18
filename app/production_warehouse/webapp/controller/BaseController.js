@@ -19,6 +19,9 @@ sap.ui.define([
         getModel: function (sName) {
             return this.getView().getModel(sName);
         },
+        getLocalModel:function(sName){
+            return this.getOwnerComponent().getModel(sName);
+        },
 
         /**
          * Convenience method for setting the view model in every controller of the application.
@@ -30,14 +33,25 @@ sap.ui.define([
         setModel: function (oModel, sName) {
             return this.getView().setModel(oModel, sName);
         },
-
-        /**
-         * Convenience method for getting the resource bundle.
-         * @public
-         * @returns {sap.ui.model.resource.ResourceModel} the resourceModel of the component
-         */
+        getRouter:function(){
+            return this.getOwnerComponent().getRouter();
+        },
         getBaseURL: function () {
             return sap.ui.require.toUrl("pw/productionwarehouse");
+        },
+        getWarningMessageBox: function (sText) {
+			MessageBox.warning(sText);
+		},
+        loadFragment:function(sPath){
+            let oView = this.getView();
+            return Fragment.load({
+                id: oView.getId(),
+                name: sPath,
+                controller: this
+            }).then(function (oDialog) {
+                oView.addDependent(oDialog);
+                return oDialog;
+            });
         },
         ODataPost: function (sPath, oNewData) {
             let oModel = this.getView().getModel();

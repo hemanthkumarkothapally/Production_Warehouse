@@ -14,7 +14,5 @@ module.exports = (srv) => {
     //         return await cds.run(req.query);
     //     }
     // });
-    srv.on("getUser", async (req) => {
-        return req.user;
-    })
+    
 }
