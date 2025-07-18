@@ -13,6 +13,7 @@ sap.ui.define([
         },
         _onRouterProductionWarehouseComplaintsMatched:function(oEvent){
             let oComplaints={
+                "status":"DRAFT",
                 "complaintDetails": {
                     "seriousness": null
                 },

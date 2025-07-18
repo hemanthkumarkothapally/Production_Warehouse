@@ -10,7 +10,7 @@
     xmlns:f="sap.f"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
-    <uxap:ObjectPageLayout headerContentPinned="true" showFooter="{= ${DetailsModel>/Complaint/ID}? false : true}">
+    <uxap:ObjectPageLayout headerContentPinned="true" showFooter="{= ${DetailsModel>/Complaint/status}=='DRAFT'? true : false}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:expandedHeading>
