@@ -3,8 +3,9 @@ sap.ui.define([
     "sap/ui/core/Fragment",
     "pw/productionwarehouse/controller/BaseController",
     'sap/ui/model/Filter',
-	'sap/ui/model/FilterOperator'
-], (Controller,Fragment,BaseController,Filter,FilterOperator) => {
+	'sap/ui/model/FilterOperator',
+    "sap/ui/core/BusyIndicator"
+], (Controller,Fragment,BaseController,Filter,FilterOperator,BusyIndicator) => {
     "use strict";
 
     return BaseController.extend("pw.productionwarehouse.controller.ProductionWarehouseComplaints", {
@@ -12,6 +13,7 @@ sap.ui.define([
             this.getRouter().getRoute("RouteProductionWarehouseComplaints").attachPatternMatched(this._onRouterProductionWarehouseComplaintsMatched,this)
         },
         _onRouterProductionWarehouseComplaintsMatched:function(oEvent){
+            this.byId("idComplaintsTable").getBinding("items").refresh();
             let oComplaints={
                 "status":"DRAFT",
                 "complaintDetails": {
@@ -21,6 +23,7 @@ sap.ui.define([
                 "attachments": []
             }
             this.getLocalModel("DetailsModel").setProperty("/Complaint",oComplaints);
+            
             console.log(oEvent);
         },
         onGoBtnPress:function(oEvent){

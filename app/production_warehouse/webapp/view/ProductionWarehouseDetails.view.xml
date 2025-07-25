@@ -62,7 +62,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection >
                         <uxap:actions>
-                            <Button icon="sap-icon://add" text="Add Item" type="Accept" press="onAddItemBtnPress" enabled="{DetailsModel>/editable}"></Button>
+                            <Button icon="sap-icon://add" text="Add Item" type="Accept" press="onAddItemBtnPress" visible="{DetailsModel>/editable}"></Button>
                         </uxap:actions>
                         <uxap:blocks >
                             <VBox id="idItemsVBox">

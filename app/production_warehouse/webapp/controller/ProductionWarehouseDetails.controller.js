@@ -3,8 +3,9 @@ sap.ui.define([
     "pw/productionwarehouse/controller/BaseController",
     'sap/ui/core/Fragment',
     "sap/ui/model/Filter",
-    "sap/m/MessageToast"
-], (Controller, BaseController, Fragment, Filter,MessageToast) => {
+    "sap/m/MessageToast",
+    "sap/ui/core/BusyIndicator"
+], (Controller, BaseController, Fragment, Filter, MessageToast,BusyIndicator) => {
     "use strict";
 
     return BaseController.extend("pw.productionwarehouse.controller.ProductionWarehouseDetails", {
@@ -12,41 +13,49 @@ sap.ui.define([
             this.getRouter().getRoute("RouteProductionWarehouseDetails").attachPatternMatched(this._onRouterProductionWarehouseDetailsMatched, this)
         },
         _onRouterProductionWarehouseDetailsMatched: function (oEvent) {
+            BusyIndicator.show(0);
             this.byId("idItemsVBox").destroyItems();
             let oArguments = oEvent.getParameter("arguments");
-            let sStatus=this.getOwnerComponent().getModel("DetailsModel").getProperty("/Complaint/status");
+            let sStatus = this.getOwnerComponent().getModel("DetailsModel").getProperty("/Complaint/status");
             this._oID = oArguments.ID;
-            if(this._oID!="NEW" && sStatus!="DRAFT"){
-                this.getOwnerComponent().getModel("DetailsModel").setProperty("/editable",false);
+            if (this._oID != "NEW" && sStatus != "DRAFT") {
+                this.getOwnerComponent().getModel("DetailsModel").setProperty("/editable", false);
             }
-            else{
-                this.getOwnerComponent().getModel("DetailsModel").setProperty("/editable",true);
+            else {
+                this.getOwnerComponent().getModel("DetailsModel").setProperty("/editable", true);
 
             }
-            let aItems=this.getOwnerComponent().getModel("DetailsModel").getProperty("/Complaint/items");
-            if(this._oID!="NEW" && aItems.length > 0){
+            let aItems = this.getOwnerComponent().getModel("DetailsModel").getProperty("/Complaint/items");
+            if (this._oID != "NEW" && aItems.length > 0) {
                 this._buildItemDetailsForms(aItems);
             }
+            BusyIndicator.hide();
             console.log(this._oID);
         },
-        _buildItemDetailsForms:function(aItems){
+        _buildItemDetailsForms: async function (aItems) {
+
             let oItemsBox = this.byId("idItemsVBox");
-            aItems.forEach(item=>{
+            for (const item of aItems) {
+                let oModel = this.getModel();
+                let sPath = "/Products('" + item.product_ID + "')";
+                let oContext = oModel.bindContext(sPath);
+                let oData = await oContext.requestObject();
+                let oproductName = oData.productName;
                 let oSimpleForm = new sap.ui.layout.form.SimpleForm({
                     layout: "ColumnLayout",
                     columnsM: 2,
                     editable: true,
                     toolbar: new sap.m.Toolbar({
                         content: [
-                            new sap.m.Title({ text: item.product_ID, level: "H3" }),
+                            new sap.m.Title({ text: oproductName, level: "H3" }),
                             new sap.m.ToolbarSpacer(),
                             new sap.m.Button({
                                 icon: "sap-icon://delete",
                                 type: "Reject",
-                                enabled:"{DetailsModel>/editable}",
+                                enabled: "{DetailsModel>/editable}",
                                 press: function (oEvent) {
                                     try {
-                                        let sForm=oEvent.getSource().getParent().getParent().getParent();
+                                        let sForm = oEvent.getSource().getParent().getParent().getParent();
                                         sForm.destroy();
                                         MessageToast.show("Form closed successfully");
                                     } catch (error) {
@@ -61,26 +70,26 @@ sap.ui.define([
                         new sap.m.Label({ text: "product_ID", required: true, visible: false }),
                         new sap.m.Input({ value: item.product_ID, visible: false }),
                         new sap.m.Label({ text: "Supplier", required: true }),
-                        new sap.m.Input({value: item.supplier,editable:"{DetailsModel>/editable}"}),
+                        new sap.m.Input({ value: item.supplier, editable: "{DetailsModel>/editable}" }),
                         new sap.m.Label({ text: "Batch No", required: true }),
-                        new sap.m.Input({value: item.batchNo,editable:"{DetailsModel>/editable}"}),
+                        new sap.m.Input({ value: item.batchNo, editable: "{DetailsModel>/editable}" }),
                         new sap.m.Label({ text: "Production", required: true }),
-                        new sap.m.DatePicker({ value: item.productionDate, displayFormat: 'dd/MM/y', valueFormat: 'yyyy-MM-dd',editable:"{DetailsModel>/editable}" }),
+                        new sap.m.DatePicker({ value: item.productionDate, displayFormat: 'dd/MM/y', valueFormat: 'yyyy-MM-dd', editable: "{DetailsModel>/editable}" }),
                         new sap.m.Label({ text: "Expiration", required: true }),
-                        new sap.m.DatePicker({ value: item.expirationDate, displayFormat: 'dd/MM/y', valueFormat: 'yyyy-MM-dd',editable:"{DetailsModel>/editable}" }),
+                        new sap.m.DatePicker({ value: item.expirationDate, displayFormat: 'dd/MM/y', valueFormat: 'yyyy-MM-dd', editable: "{DetailsModel>/editable}" }),
                         new sap.m.Label({ text: "lot code", required: true }),
-                        new sap.m.Input({value: item.lotCode,editable:"{DetailsModel>/editable}"}),
+                        new sap.m.Input({ value: item.lotCode, editable: "{DetailsModel>/editable}" }),
                         new sap.m.Label({ text: "Received On", required: true }),
-                        new sap.m.DatePicker({ value: item.receivedOn, displayFormat: 'dd/MM/y', valueFormat: 'yyyy-MM-dd' ,editable:"{DetailsModel>/editable}"}),
+                        new sap.m.DatePicker({ value: item.receivedOn, displayFormat: 'dd/MM/y', valueFormat: 'yyyy-MM-dd', editable: "{DetailsModel>/editable}" }),
                         new sap.m.Label({ text: "Qty", required: true }),
-                        new sap.m.Input({value: item.quantity,editable:"{DetailsModel>/editable}"}),
+                        new sap.m.Input({ value: item.quantity, editable: "{DetailsModel>/editable}" }),
                         new sap.m.Label({ text: "Invoice Number", required: true }),
-                        new sap.m.Input({value: item.invoiceNumber,editable:"{DetailsModel>/editable}"})
+                        new sap.m.Input({ value: item.invoiceNumber, editable: "{DetailsModel>/editable}" })
                     ]
                 });
-    
+
                 oItemsBox.addItem(oSimpleForm)
-            })
+            }
         },
         onDeclineBtnPress: function () {
             this.getRouter().navTo("RouteProductionWarehouseComplaints");
@@ -110,7 +119,7 @@ sap.ui.define([
             oBinding.filter(aFilters);
         },
         onItemSelection: function (oEvent) {
-            let oProductData=oEvent.getSource().getBindingContext().getObject();
+            let oProductData = oEvent.getSource().getBindingContext().getObject();
             let sProductId = oProductData.ID;
             let oItemsBox = this.byId("idItemsVBox");
             // let oId=jQuery.sap.uid("dynamicForm_");
@@ -129,7 +138,7 @@ sap.ui.define([
                             type: "Reject",
                             press: function (oEvent) {
                                 try {
-                                    let sForm=oEvent.getSource().getParent().getParent().getParent();
+                                    let sForm = oEvent.getSource().getParent().getParent().getParent();
                                     sForm.destroy();
                                     MessageToast.show("Form closed successfully");
                                 } catch (error) {
@@ -155,7 +164,7 @@ sap.ui.define([
                     new sap.m.Label({ text: "Received On", required: true }),
                     new sap.m.DatePicker({ dateValue: new Date(), displayFormat: 'dd/MM/y', valueFormat: 'yyyy-MM-dd' }),
                     new sap.m.Label({ text: "Qty", required: true }),
-                    new sap.m.Input(),
+                    new sap.m.Input({ type: "Number" }),
                     new sap.m.Label({ text: "Invoice Number", required: true }),
                     new sap.m.Input()
                 ]
@@ -201,7 +210,8 @@ sap.ui.define([
                 oDialog.close();
             });
         },
-        _getItemFormDetails:function(){
+        _getItemFormDetails: function () {
+            
             let oItemsBox = this.byId("idItemsVBox").getItems();
             console.log(oItemsBox)
             if (oItemsBox.length > 0) {
@@ -242,46 +252,46 @@ sap.ui.define([
             this._getItemFormDetails();
             console.log(this.getOwnerComponent().getModel("DetailsModel").getProperty("/Complaint"));
             let payLoad = this.getOwnerComponent().getModel("DetailsModel").getProperty("/Complaint");
-            payLoad["status"]="MANAGER_APPROVAL_PENDING"
-            if(this._oID==="NEW"){
+            payLoad["status"] = "MANAGER_APPROVAL_PENDING"
+            if (this._oID === "NEW") {
                 this.ODataPost("/Complaints", payLoad);
             }
-            else{
+            else {
                 $.ajax({
-                    url: this.getBaseURL()+"/odata/v4/production-warehouse/Complaints('"+ this._oID +"')",
-                    method:"PUT",
-                    contentType:"application/json",
-                    data:JSON.stringify(payLoad),
-                    success: function(data) {
+                    url: this.getBaseURL() + "/odata/v4/production-warehouse/Complaints('" + this._oID + "')",
+                    method: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify(payLoad),
+                    success: function (data) {
                         MessageToast.show("Successfully Updated");
-                      },
-                      error: function(error) {
+                    },
+                    error: function (error) {
                         MessageToast.show("Error submitting data");
-                      }
+                    }
                 });
             }
             this.onDeclineBtnPress();
         },
-        onCompleteLaterBtnPress:function(){
+        onCompleteLaterBtnPress: function () {
             this._getItemFormDetails();
             console.log(this.getOwnerComponent().getModel("DetailsModel").getProperty("/Complaint"));
             let payLoad = this.getOwnerComponent().getModel("DetailsModel").getProperty("/Complaint");
-            payLoad["status"]="DRAFT";
-            if(this._oID==="NEW"){
+            payLoad["status"] = "DRAFT";
+            if (this._oID === "NEW") {
                 this.ODataPost("/Complaints", payLoad);
             }
-            else{
+            else {
                 $.ajax({
-                    url: this.getBaseURL()+"/odata/v4/production-warehouse/Complaints('"+ this._oID +"')",
-                    method:"PUT",
-                    contentType:"application/json",
-                    data:JSON.stringify(payLoad),
-                    success: function(data) {
+                    url: this.getBaseURL() + "/odata/v4/production-warehouse/Complaints('" + this._oID + "')",
+                    method: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify(payLoad),
+                    success: function (data) {
                         MessageToast.show("Successfully Updated");
-                      },
-                      error: function(error) {
+                    },
+                    error: function (error) {
                         MessageToast.show("Error submitting data");
-                      }
+                    }
                 });
             }
             this.onDeclineBtnPress();
